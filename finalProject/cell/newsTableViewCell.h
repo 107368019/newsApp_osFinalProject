@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "newsRes.h"
 
 
 @interface newsTableViewCell : UITableViewCell
-
+- (void)setCell:(content_newsReq *)data img:(UIImage*)img;
 @end
 
 
