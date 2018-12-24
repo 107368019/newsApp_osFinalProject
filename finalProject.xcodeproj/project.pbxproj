@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D62C977621D10F7800633195 /* newsView.m in Sources */ = {isa = PBXBuildFile; fileRef = D62C977521D10F7800633195 /* newsView.m */; };
+		D62C977821D10F8F00633195 /* newsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D62C977721D10F8F00633195 /* newsView.xib */; };
 		D65CF27521BFFA0B00790631 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D65CF27421BFFA0B00790631 /* AppDelegate.m */; };
 		D65CF27821BFFA0B00790631 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D65CF27721BFFA0B00790631 /* ViewController.m */; };
 		D65CF27B21BFFA0B00790631 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D65CF27921BFFA0B00790631 /* Main.storyboard */; };
@@ -26,6 +28,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D62C977421D10F7800633195 /* newsView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = newsView.h; sourceTree = "<group>"; };
+		D62C977521D10F7800633195 /* newsView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = newsView.m; sourceTree = "<group>"; };
+		D62C977721D10F8F00633195 /* newsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = newsView.xib; sourceTree = "<group>"; };
 		D65CF27021BFFA0B00790631 /* finalProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = finalProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D65CF27321BFFA0B00790631 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D65CF27421BFFA0B00790631 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -68,6 +73,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D62C977221D10F4500633195 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				D62C977321D10F5600633195 /* newsView */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		D62C977321D10F5600633195 /* newsView */ = {
+			isa = PBXGroup;
+			children = (
+				D62C977421D10F7800633195 /* newsView.h */,
+				D62C977521D10F7800633195 /* newsView.m */,
+				D62C977721D10F8F00633195 /* newsView.xib */,
+			);
+			path = newsView;
+			sourceTree = "<group>";
+		};
 		D65CF26721BFFA0B00790631 = {
 			isa = PBXGroup;
 			children = (
@@ -87,6 +110,7 @@
 		D65CF27221BFFA0B00790631 /* finalProject */ = {
 			isa = PBXGroup;
 			children = (
+				D62C977221D10F4500633195 /* view */,
 				D65CF2B821C2906200790631 /* cell */,
 				D65CF2AA21C14C6F00790631 /* DataManager */,
 				D65CF2A221C1469800790631 /* BNAgent */,
@@ -275,6 +299,7 @@
 				D65CF28021BFFA0C00790631 /* LaunchScreen.storyboard in Resources */,
 				D65CF27D21BFFA0C00790631 /* Assets.xcassets in Resources */,
 				D65CF2B721C2904300790631 /* newsTableViewCell.xib in Resources */,
+				D62C977821D10F8F00633195 /* newsView.xib in Resources */,
 				D65CF27B21BFFA0B00790631 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -298,6 +323,7 @@
 				D65CF2A521C146D500790631 /* BNAgent.m in Sources */,
 				D65CF2B121C14E1C00790631 /* MethodResponse.m in Sources */,
 				D65CF29721BFFE5E00790631 /* jsonDecoder.m in Sources */,
+				D62C977621D10F7800633195 /* newsView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

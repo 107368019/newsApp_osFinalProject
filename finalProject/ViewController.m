@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "DataManager/DataManager.h"
 #import "newsTableViewCell.h"
+#import "newsView.h"
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) DataManager *dataManager;
@@ -81,9 +82,14 @@
 //        UIButton *btn= [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 50)];
         UIButton *btn= [[UIButton alloc]init];
         btn.tag=i;
-        btn.titleLabel.text=[NSString stringWithFormat:@"445346%d",i];
-        btn.backgroundColor=[UIColor blueColor];
+        
+        UIImage *img=[UIImage imageNamed:[NSString stringWithFormat:@"news%d",i]];
+        [btn setImage:img forState:UIControlStateNormal];
+        btn.imageView.contentMode=UIViewContentModeScaleAspectFit;
+        UIImage *imgSelect=[UIImage imageNamed:[NSString stringWithFormat:@"news%d-1",i]];
+        [btn setImage:imgSelect forState:UIControlStateSelected];
         [btn addTarget:self action:@selector(typeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        
         [_typeStackview addArrangedSubview:btn];
     }
 
@@ -92,10 +98,27 @@
     _newsScrollview.contentSize=CGSizeMake(width*10, height);
     _newsScrollview.delegate=self;
     for (int i=0; i<10; i++) {
-        UIImageView *imgView=[[UIImageView alloc]initWithFrame:CGRectMake(i*width, 0, width,  height)];
-         [imgView setImage:[UIImage imageNamed:@"homeCubee"]];
-        imgView.contentMode=UIViewContentModeScaleAspectFit;
-        [_newsScrollview addSubview:imgView];
+//        UIImageView *imgView=[[UIImageView alloc]initWithFrame:CGRectMake(i*width, 0, width,  height)];
+//         [imgView setImage:[UIImage imageNamed:@"homeCubee"]];
+//        imgView.contentMode=UIViewContentModeScaleAspectFit;
+        
+        
+        newsView *tView;
+//        =[[newsView alloc]initWithFrame:CGRectMake(i*width, 0, width,  height)];
+        if(!tView){
+            NSArray *views = [[NSBundle mainBundle]loadNibNamed:@"newsView" owner:nil options:nil];
+            for (UIView *view in views)
+            {
+                if ([view isKindOfClass:[newsView class]])
+                {
+                    tView =(newsView *)view;
+                }
+            }
+        }
+        [tView setFrame:CGRectMake(i*width,0,width,height)];
+        
+        [tView setimgWithUrl:@"" title:@"12344"];
+        [_newsScrollview addSubview:tView];
     }
 }
 
@@ -126,6 +149,11 @@
 }
 
 - (void)typeBtnClick:(UIButton*)btn{
+    for (int i=0; i<7; i++) {
+        [_typeStackview.arrangedSubviews[i] setSelected:NO];
+    }
+    [btn setSelected:YES];
+    
     _showContents=_contentsArr[btn.tag];
     [_tableView reloadData];
     [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
