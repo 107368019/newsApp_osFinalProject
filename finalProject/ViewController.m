@@ -10,6 +10,7 @@
 #import "DataManager/DataManager.h"
 #import "newsTableViewCell.h"
 #import "newsView.h"
+#import "newsPopupViewController.h"
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) DataManager *dataManager;
@@ -169,7 +170,8 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+    newsPopupViewController *tView=[[newsPopupViewController alloc]initWithNibName:@"newsPopupViewController" bundle:nil];
+    [tView showInVC:self data:_showContents[indexPath.row]];
     
 }
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{

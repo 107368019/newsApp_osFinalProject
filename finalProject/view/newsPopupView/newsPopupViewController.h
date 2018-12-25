@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "newsRes.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface newsPopupViewController : UIViewController
+- (void)showInVC:(UIViewController *)vc data:(content_newsReq*)data;
 
 @end
 
