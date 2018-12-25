@@ -29,7 +29,7 @@
     // Configure the view for the selected state
 }
 
-- (void)setCell:(content_newsReq *)data img:(UIImage*)img{
+- (void)setCell:(content_newsReq *)data{
    
     switch (data.type) {
         case 2:
@@ -61,7 +61,17 @@
     }
     _content.text=data.title;
     _publisher.text=data.publisher;
-   
-    _newsImg.image =img;
+    
+    dispatch_async(dispatch_get_global_queue(0,0), ^{
+        NSData * imgData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: data.imageUrl]];
+        if (imgData){
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // WARNING: is the cell still using the same data by this point??
+                UIImage *image = [UIImage imageWithData:imgData];
+                self.newsImg.image=image;
+            });
+        }
+    });
+    
 }
 @end

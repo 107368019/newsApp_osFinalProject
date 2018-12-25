@@ -11,7 +11,7 @@
 
 
 @interface newsTableViewCell : UITableViewCell
-- (void)setCell:(content_newsReq *)data img:(UIImage*)img;
+- (void)setCell:(content_newsReq *)data;
 @end
 
 

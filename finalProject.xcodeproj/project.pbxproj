@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		D62C977621D10F7800633195 /* newsView.m in Sources */ = {isa = PBXBuildFile; fileRef = D62C977521D10F7800633195 /* newsView.m */; };
 		D62C977821D10F8F00633195 /* newsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D62C977721D10F8F00633195 /* newsView.xib */; };
+		D62C977D21D2112300633195 /* newsPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D62C977B21D2112300633195 /* newsPopupViewController.m */; };
+		D62C977E21D2112300633195 /* newsPopupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D62C977C21D2112300633195 /* newsPopupViewController.xib */; };
 		D65CF27521BFFA0B00790631 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D65CF27421BFFA0B00790631 /* AppDelegate.m */; };
 		D65CF27821BFFA0B00790631 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D65CF27721BFFA0B00790631 /* ViewController.m */; };
 		D65CF27B21BFFA0B00790631 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D65CF27921BFFA0B00790631 /* Main.storyboard */; };
@@ -31,6 +33,9 @@
 		D62C977421D10F7800633195 /* newsView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = newsView.h; sourceTree = "<group>"; };
 		D62C977521D10F7800633195 /* newsView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = newsView.m; sourceTree = "<group>"; };
 		D62C977721D10F8F00633195 /* newsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = newsView.xib; sourceTree = "<group>"; };
+		D62C977A21D2112300633195 /* newsPopupViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = newsPopupViewController.h; sourceTree = "<group>"; };
+		D62C977B21D2112300633195 /* newsPopupViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = newsPopupViewController.m; sourceTree = "<group>"; };
+		D62C977C21D2112300633195 /* newsPopupViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = newsPopupViewController.xib; sourceTree = "<group>"; };
 		D65CF27021BFFA0B00790631 /* finalProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = finalProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D65CF27321BFFA0B00790631 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D65CF27421BFFA0B00790631 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -76,6 +81,7 @@
 		D62C977221D10F4500633195 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				D62C977921D210F500633195 /* newsPopupView */,
 				D62C977321D10F5600633195 /* newsView */,
 			);
 			path = view;
@@ -89,6 +95,16 @@
 				D62C977721D10F8F00633195 /* newsView.xib */,
 			);
 			path = newsView;
+			sourceTree = "<group>";
+		};
+		D62C977921D210F500633195 /* newsPopupView */ = {
+			isa = PBXGroup;
+			children = (
+				D62C977A21D2112300633195 /* newsPopupViewController.h */,
+				D62C977B21D2112300633195 /* newsPopupViewController.m */,
+				D62C977C21D2112300633195 /* newsPopupViewController.xib */,
+			);
+			path = newsPopupView;
 			sourceTree = "<group>";
 		};
 		D65CF26721BFFA0B00790631 = {
@@ -300,6 +316,7 @@
 				D65CF27D21BFFA0C00790631 /* Assets.xcassets in Resources */,
 				D65CF2B721C2904300790631 /* newsTableViewCell.xib in Resources */,
 				D62C977821D10F8F00633195 /* newsView.xib in Resources */,
+				D62C977E21D2112300633195 /* newsPopupViewController.xib in Resources */,
 				D65CF27B21BFFA0B00790631 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -315,6 +332,7 @@
 				D65CF2AD21C14C9600790631 /* DataManager.m in Sources */,
 				D65CF29121BFFAAC00790631 /* newsRes.m in Sources */,
 				D65CF28E21BFFA9C00790631 /* newsReq.m in Sources */,
+				D62C977D21D2112300633195 /* newsPopupViewController.m in Sources */,
 				D65CF2A921C1499500790631 /* jsonEncoder.m in Sources */,
 				D65CF29B21C0010300790631 /* NSObject+ObjectCategory.m in Sources */,
 				D65CF2B621C2904300790631 /* newsTableViewCell.m in Sources */,

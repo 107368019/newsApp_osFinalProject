@@ -15,7 +15,7 @@
 @property (strong, nonatomic) DataManager *dataManager;
 @property (strong, nonatomic) NSMutableArray<NSMutableArray<content_newsReq*>*> *contentsArr;
 @property (strong, nonatomic) NSMutableArray<content_newsReq*> *showContents;
-@property (strong, nonatomic) NSMutableArray<UIImage*> *imgArr;
+
 @property (strong, nonatomic) IBOutlet UIStackView *typeStackview;
 @property (strong, nonatomic) IBOutlet UIScrollView *newsScrollview;
 
@@ -31,7 +31,7 @@
     _dataManager = [DataManager getInstance];
     [self tableViewInit];
     [self arrayInit];
-    [self stackviewAndScrollviewInit];
+    [self typeStackviewInit];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -64,7 +64,7 @@
 }
 #pragma mark - init
 - (void)arrayInit{
-    _imgArr= [NSMutableArray<UIImage*> new ];
+    
     _contentsArr=[NSMutableArray<NSMutableArray<content_newsReq*>*> new ];
     for (int i=0; i<7; i++) {
         NSMutableArray<content_newsReq*> *contents=[NSMutableArray<content_newsReq*> new ];
@@ -75,36 +75,34 @@
 - (void)tableViewInit{
     _tableView.delegate=self;
     _tableView.dataSource=self;
+    
 }
 
-- (void)stackviewAndScrollviewInit{
+- (void)typeStackviewInit{
     for (int i=0; i<7; i++) {
-//        UIButton *btn= [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 50)];
+
         UIButton *btn= [[UIButton alloc]init];
         btn.tag=i;
-        
         UIImage *img=[UIImage imageNamed:[NSString stringWithFormat:@"news%d",i]];
         [btn setImage:img forState:UIControlStateNormal];
         btn.imageView.contentMode=UIViewContentModeScaleAspectFit;
         UIImage *imgSelect=[UIImage imageNamed:[NSString stringWithFormat:@"news%d-1",i]];
         [btn setImage:imgSelect forState:UIControlStateSelected];
+        [btn setBackgroundColor:[UIColor whiteColor]];
         [btn addTarget:self action:@selector(typeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        
+        btn.layer.cornerRadius=5;
+        btn.layer.borderColor=[UIColor redColor].CGColor;
         [_typeStackview addArrangedSubview:btn];
     }
+}
 
+- (void)setNewsScrollview{
     CGFloat width=_newsImgView.frame.size.width;
     CGFloat height=_newsImgView.frame.size.height;
     _newsScrollview.contentSize=CGSizeMake(width*10, height);
     _newsScrollview.delegate=self;
     for (int i=0; i<10; i++) {
-//        UIImageView *imgView=[[UIImageView alloc]initWithFrame:CGRectMake(i*width, 0, width,  height)];
-//         [imgView setImage:[UIImage imageNamed:@"homeCubee"]];
-//        imgView.contentMode=UIViewContentModeScaleAspectFit;
-        
-        
         newsView *tView;
-//        =[[newsView alloc]initWithFrame:CGRectMake(i*width, 0, width,  height)];
         if(!tView){
             NSArray *views = [[NSBundle mainBundle]loadNibNamed:@"newsView" owner:nil options:nil];
             for (UIView *view in views)
@@ -116,11 +114,11 @@
             }
         }
         [tView setFrame:CGRectMake(i*width,0,width,height)];
-        
-        [tView setimgWithUrl:@"" title:@"12344"];
+        [tView setimgWithUrl:_showContents[i].imageUrl title:_showContents[i].title];
         [_newsScrollview addSubview:tView];
     }
 }
+
 
 - (void)doGetNewsWithType:(int)type{
     newsReq *req=[[newsReq alloc]initWithaccountID:@"test" lastIndex:-1 count:20 type:@[@(type)]];
@@ -136,39 +134,32 @@
         if(type==3){
             _showContents=_contentsArr[index];
              [_tableView reloadData];
+            [self setNewsScrollview];
         }
-        
-        
-        
-//        for (int i=0; i<res.results.content.count; i++) {
-//            UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:res.results.content[i].imageUrl]]];
-//            [_imgArr addObject:image];
-//        }
-//
+ 
     }
 }
 
 - (void)typeBtnClick:(UIButton*)btn{
     for (int i=0; i<7; i++) {
         [_typeStackview.arrangedSubviews[i] setSelected:NO];
+        _typeStackview.arrangedSubviews[i].layer.borderWidth=0;
     }
+    btn.layer.borderWidth=2;
     [btn setSelected:YES];
-    
-    _showContents=_contentsArr[btn.tag];
+    _showContents=_contentsArr[btn.tag];;
     [_tableView reloadData];
     [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-//    UITableViewCell *cell =[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
-//    cell.textLabel.text=_res.results.content[indexPath.row].title;
     
     newsTableViewCell *cell = (newsTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"newsTableViewCell"];
     if (!cell)
     {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"newsTableViewCell" owner:nil options:nil] objectAtIndex:0];
     }
-    [cell setCell:_showContents[indexPath.row] img:nil];
+    [cell setCell:_showContents[indexPath.row]];
     
     return cell;
 }

@@ -23,9 +23,17 @@
 
 - (void)setimgWithUrl:(NSString*)url title:(NSString*)title{
     
-    [_imgView setImage:[UIImage imageNamed:@"homeCubee"]];
-    _title.text=title;
     
+    _title.text=title;
+    dispatch_async(dispatch_get_global_queue(0,0), ^{
+        NSData * imgData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: url]];
+        if (imgData){
+            dispatch_async(dispatch_get_main_queue(), ^{                
+                UIImage *image = [UIImage imageWithData:imgData];
+                self.imgView.image=image;
+            });
+        }
+    });
     
 }
 @end
