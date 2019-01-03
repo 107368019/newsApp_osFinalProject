@@ -26,19 +26,20 @@
                             <constraint firstAttribute="height" constant="125" id="8Rf-RN-woI"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Mk-3G-zh9">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Mk-3G-zh9">
                         <rect key="frame" x="186.5" y="5" width="42" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="51533135153143515315315315315315313515315313515313513513513515" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="bYT-bw-MmX">
-                        <rect key="frame" x="186.5" y="41" width="318.5" height="41"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bYT-bw-MmX">
+                        <rect key="frame" x="186.5" y="36" width="318.5" height="66"/>
+                        <string key="text">515331351531435153153153153515331351531435153153153153515331351531435153153153153515331351531435153153153153515331351531435153153153153515331351531435153153153153515331351531435153153153153515331351531435153153153153</string>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Lz-lg-Z3T">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Lz-lg-Z3T">
                         <rect key="frame" x="186.5" y="112" width="318.5" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -55,17 +56,17 @@
                 <constraints>
                     <constraint firstItem="bYT-bw-MmX" firstAttribute="leading" secondItem="6Mk-3G-zh9" secondAttribute="leading" id="5pY-tD-7D4"/>
                     <constraint firstItem="6Mk-3G-zh9" firstAttribute="leading" secondItem="2R9-5V-Dzt" secondAttribute="leading" id="9Ce-mC-rNt"/>
-                    <constraint firstItem="6Lz-lg-Z3T" firstAttribute="top" relation="greaterThanOrEqual" secondItem="bYT-bw-MmX" secondAttribute="bottom" id="AlN-BT-5fB"/>
                     <constraint firstItem="6Lz-lg-Z3T" firstAttribute="trailing" secondItem="2R9-5V-Dzt" secondAttribute="trailing" id="Cru-OF-baf"/>
                     <constraint firstItem="6Lz-lg-Z3T" firstAttribute="bottom" secondItem="5KU-1u-lw7" secondAttribute="bottom" id="ENk-Yp-gVu"/>
                     <constraint firstItem="5KU-1u-lw7" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="KMY-8A-M4v"/>
                     <constraint firstItem="2R9-5V-Dzt" firstAttribute="top" secondItem="5KU-1u-lw7" secondAttribute="bottom" id="RBm-c5-YKM"/>
                     <constraint firstItem="6Mk-3G-zh9" firstAttribute="top" secondItem="5KU-1u-lw7" secondAttribute="top" id="Tpc-h1-ULk"/>
                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="5KU-1u-lw7" secondAttribute="bottom" constant="5" id="X1t-Ar-TdK"/>
+                    <constraint firstItem="6Lz-lg-Z3T" firstAttribute="top" relation="greaterThanOrEqual" secondItem="bYT-bw-MmX" secondAttribute="bottom" constant="10" id="cFk-jd-X1W"/>
                     <constraint firstItem="6Lz-lg-Z3T" firstAttribute="leading" secondItem="bYT-bw-MmX" secondAttribute="leading" id="jkE-if-5qp"/>
                     <constraint firstAttribute="trailingMargin" secondItem="bYT-bw-MmX" secondAttribute="trailing" constant="10" id="nue-g5-bHs"/>
                     <constraint firstItem="5KU-1u-lw7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="omh-6j-itI"/>
-                    <constraint firstItem="bYT-bw-MmX" firstAttribute="top" secondItem="6Mk-3G-zh9" secondAttribute="bottom" constant="15" id="rm3-le-s1f"/>
+                    <constraint firstItem="bYT-bw-MmX" firstAttribute="top" secondItem="6Mk-3G-zh9" secondAttribute="bottom" constant="10" id="rm3-le-s1f"/>
                     <constraint firstAttribute="trailingMargin" secondItem="6Lz-lg-Z3T" secondAttribute="trailing" constant="10" id="ugy-kq-TiY"/>
                     <constraint firstItem="6Mk-3G-zh9" firstAttribute="leading" secondItem="5KU-1u-lw7" secondAttribute="trailing" constant="10" id="wbw-uG-AMd"/>
                 </constraints>
@@ -77,7 +78,7 @@
                 <outlet property="newsType" destination="6Mk-3G-zh9" id="b6r-H2-Y04"/>
                 <outlet property="publisher" destination="6Lz-lg-Z3T" id="O7U-7u-E2v"/>
             </connections>
-            <point key="canvasLocation" x="-618" y="149"/>
+            <point key="canvasLocation" x="-618.39999999999998" y="148.42578710644679"/>
         </tableViewCell>
     </objects>
     <resources>

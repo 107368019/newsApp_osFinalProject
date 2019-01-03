@@ -51,7 +51,7 @@
                                     <constraint firstAttribute="width" secondItem="0Vg-Vr-Hr5" secondAttribute="height" multiplier="16:9" id="p8N-p2-PWf"/>
                                 </constraints>
                             </view>
-                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="10" translatesAutoresizingMaskIntoConstraints="NO" id="Drh-1d-DAd">
+                            <pageControl opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="10" translatesAutoresizingMaskIntoConstraints="NO" id="Drh-1d-DAd">
                                 <rect key="frame" x="112" y="244" width="151" height="37"/>
                                 <color key="pageIndicatorTintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="currentPageIndicatorTintColor" red="1" green="0.1770429211" blue="0.16380467509999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -11,7 +11,8 @@
 #import "newsTableViewCell.h"
 #import "newsView.h"
 #import "newsPopupViewController.h"
-@interface ViewController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>
+@import SafariServices;
+@interface ViewController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,SFSafariViewControllerDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) DataManager *dataManager;
 @property (strong, nonatomic) NSMutableArray<NSMutableArray<content_newsReq*>*> *contentsArr;
@@ -22,6 +23,9 @@
 
 @property (strong, nonatomic) IBOutlet UIView *newsImgView;
 @property (strong, nonatomic) IBOutlet UIPageControl *pageCtrl;
+@property (strong, nonatomic) NSTimer *timer;
+@property (assign, nonatomic) bool isFisrt;
+
 
 @end
 
@@ -33,6 +37,7 @@
     [self tableViewInit];
     [self arrayInit];
     [self typeStackviewInit];
+    _isFisrt=TRUE;
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -40,7 +45,9 @@
     //註冊推播
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataManagerNotification:) name:@"dataManager" object:nil];
     
-    
+    //焦點新聞
+    [self doGetNewsWithType:2];
+    //其他類別
     for (int i=0; i<7; i++) {
         int type=(i==6)?i+4:i+3;
         [self doGetNewsWithType:type];
@@ -67,9 +74,33 @@
 - (void)arrayInit{
     
     _contentsArr=[NSMutableArray<NSMutableArray<content_newsReq*>*> new ];
-    for (int i=0; i<7; i++) {
+    for (int i=0; i<8; i++) {
         NSMutableArray<content_newsReq*> *contents=[NSMutableArray<content_newsReq*> new ];
         [_contentsArr addObject:contents];
+    }
+}
+
+- (void)setTimer{
+    __weak typeof(self)weakSelf=self;
+    _timer=[NSTimer scheduledTimerWithTimeInterval:4 repeats:YES block:^(NSTimer *timer){
+        __strong typeof(weakSelf)strongSelf=weakSelf;
+        if(!strongSelf) return;
+        [strongSelf scrollNews];
+    }];
+}
+
+- (void)scrollNews{
+    CGFloat width=_newsImgView.frame.size.width;
+    CGFloat height=_newsImgView.frame.size.height;
+    int index=(int)_pageCtrl.currentPage;
+    if(index!=9){
+        [_newsScrollview scrollRectToVisible:CGRectMake(width*(index+1), 0, width, height) animated:YES];
+        
+        [_pageCtrl setCurrentPage:index+1];
+    }
+    else{
+        [_newsScrollview scrollRectToVisible:CGRectMake(0, 0, width, height) animated:YES];
+        [_pageCtrl setCurrentPage:0];
     }
 }
 
@@ -91,8 +122,6 @@
         [btn setImage:imgSelect forState:UIControlStateSelected];
         [btn setBackgroundColor:[UIColor whiteColor]];
         [btn addTarget:self action:@selector(typeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        btn.layer.cornerRadius=5;
-        btn.layer.borderColor=[UIColor redColor].CGColor;
         [_typeStackview addArrangedSubview:btn];
     }
 }
@@ -115,7 +144,7 @@
             }
         }
         [tView setFrame:CGRectMake(i*width,0,width,height)];
-        [tView setimgWithUrl:_showContents[i].imageUrl title:_showContents[i].title];
+        [tView setimgWithUrl:_contentsArr[7][i].imageUrl title:_contentsArr[7][i].title];
         [_newsScrollview addSubview:tView];
     }
 }
@@ -128,25 +157,31 @@
 
 - (void)handleGetNews:(newsRes *)res{
     if(res.status==0){
+        if(_isFisrt){
+            _isFisrt=NO;
+            [_contentsArr[7] addObjectsFromArray:res.results.content];
+            [self setNewsScrollview];
+            [self setTimer];
+            return;
+        }
+        
+        
         int type=res.results.content[0].type;
         int index=(type==10)?type-4:type-3;
         [_contentsArr[index] addObjectsFromArray:res.results.content];
         
         if(type==3){
             _showContents=_contentsArr[index];
-             [_tableView reloadData];
-            [self setNewsScrollview];
+            [self typeBtnClick:_typeStackview.arrangedSubviews[0]];
         }
- 
     }
 }
 
 - (void)typeBtnClick:(UIButton*)btn{
     for (int i=0; i<7; i++) {
         [_typeStackview.arrangedSubviews[i] setSelected:NO];
-        _typeStackview.arrangedSubviews[i].layer.borderWidth=0;
+        
     }
-    btn.layer.borderWidth=2;
     [btn setSelected:YES];
     _showContents=_contentsArr[btn.tag];;
     [_tableView reloadData];
@@ -170,8 +205,20 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    newsPopupViewController *tView=[[newsPopupViewController alloc]initWithNibName:@"newsPopupViewController" bundle:nil];
-    [tView showInVC:self data:_showContents[indexPath.row]];
+//    newsPopupViewController *tView=[[newsPopupViewController alloc]initWithNibName:@"newsPopupViewController" bundle:nil];
+//    [tView showInVC:self data:_showContents[indexPath.row]];
+    
+    NSURL *url=[NSURL URLWithString:_showContents[indexPath.row].url];
+    if (url.scheme.length==0){
+        url=[NSURL URLWithString:[NSString stringWithFormat:@"https://%@",_showContents[indexPath.row].url]];
+    }
+    
+    SFSafariViewControllerConfiguration *configuration;
+    configuration.entersReaderIfAvailable=TRUE;
+    SFSafariViewController *tView=[[SFSafariViewController alloc]initWithURL:url configuration:configuration];
+    tView.delegate = self;
+    [self presentViewController:tView animated:YES completion:nil];
+
     
 }
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
@@ -180,4 +227,16 @@
     [_pageCtrl setCurrentPage:currentPage];
 }
 
+- (void)safariViewController:(SFSafariViewController *)controller didCompleteInitialLoad:(BOOL)didLoadSuccessfully{
+    if(!didLoadSuccessfully)
+        [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)safariViewControllerDidFinish:(SFSafariViewController *)controller{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)safariViewController:(SFSafariViewController *)controller initialLoadDidRedirectToURL:(NSURL *)URL API_AVAILABLE(ios(11.0)){
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 @end

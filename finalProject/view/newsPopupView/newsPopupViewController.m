@@ -7,13 +7,17 @@
 //
 
 #import "newsPopupViewController.h"
+#import <WebKit/WebKit.h>
+@interface newsPopupViewController ()<WKNavigationDelegate>
+@property (strong, nonatomic) IBOutlet UIStackView *urlStackview;
 
-@interface newsPopupViewController ()
 @property (strong, nonatomic) IBOutlet UILabel *publish;
 @property (strong, nonatomic) IBOutlet UIImageView *newsImgview;
 @property (strong, nonatomic) IBOutlet UITextView *textview;
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 @property (strong, nonatomic) content_newsReq  *data;
+@property (strong, nonatomic) WKWebView  *webView;
+
 @end
 
 @implementation newsPopupViewController
@@ -25,6 +29,17 @@
 }
 
 - (void)setting{
+//    _webView =[WKWebView new];
+//    _webView.navigationDelegate=self;
+//
+//
+//    NSURL *url=[NSURL URLWithString:_data.url];
+//    if (url.scheme.length==0){
+//        url=[NSURL URLWithString:[NSString stringWithFormat:@"https://%@",_data.url]];
+//    }
+//    [_webView loadRequest:[NSURLRequest requestWithURL:url]];
+//    [_urlStackview addArrangedSubview:_webView];
+    
     _titleLabel.text=_data.title;
     _textview.text=_data.content;
     _publish.text=_data.publisher;
@@ -38,6 +53,9 @@
             });
         }
     });
+    
+    
+    
 }
 
 - (void)showInVC:(UIViewController *)vc data:(content_newsReq*)data{
@@ -88,5 +106,10 @@
     
 }
 
+- (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error{
+    UIAlertController *alert=[UIAlertController alertControllerWithTitle:@"錯誤" message:@"載入失敗" preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:nil]];
+    [self presentViewController:alert animated:YES completion:nil];
+}
 
 @end
