@@ -222,9 +222,11 @@
     
 }
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    CGFloat screenWidth = scrollView.frame.size.width;
-    NSInteger currentPage = ((scrollView.contentOffset.x - screenWidth/2)/screenWidth)+1;
-    [_pageCtrl setCurrentPage:currentPage];
+    if (scrollView==_newsScrollview) {
+        CGFloat screenWidth = scrollView.frame.size.width;
+        NSInteger currentPage = ((scrollView.contentOffset.x - screenWidth/2)/screenWidth)+1;
+        [_pageCtrl setCurrentPage:currentPage];
+    }    
 }
 
 - (void)safariViewController:(SFSafariViewController *)controller didCompleteInitialLoad:(BOOL)didLoadSuccessfully{
