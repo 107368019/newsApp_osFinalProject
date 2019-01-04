@@ -25,7 +25,7 @@
 @property (strong, nonatomic) IBOutlet UIPageControl *pageCtrl;
 @property (strong, nonatomic) NSTimer *timer;
 @property (assign, nonatomic) bool isFisrt;
-
+@property (assign, nonatomic) dispatch_once_t onceToken;
 
 @end
 
@@ -42,17 +42,20 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    
+    
     //註冊推播
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataManagerNotification:) name:@"dataManager" object:nil];
     
-    //焦點新聞
-    [self doGetNewsWithType:2];
-    //其他類別
-    for (int i=0; i<7; i++) {
-        int type=(i==6)?i+4:i+3;
-        [self doGetNewsWithType:type];
-    }
-    
+    dispatch_once(&_onceToken, ^{
+        //焦點新聞
+        [self doGetNewsWithType:2];
+        //其他類別
+        for (int i=0; i<7; i++) {
+            int type=(i==6)?i+4:i+3;
+            [self doGetNewsWithType:type];
+        }
+    });    
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -145,10 +148,29 @@
         }
         [tView setFrame:CGRectMake(i*width,0,width,height)];
         [tView setimgWithUrl:_contentsArr[7][i].imageUrl title:_contentsArr[7][i].title];
+        
+        UITapGestureRecognizer *gesture=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(newsScrollviewClick:)];
+        [tView addGestureRecognizer:gesture];
         [_newsScrollview addSubview:tView];
     }
 }
 
+- (void)newsScrollviewClick:(UITapGestureRecognizer*)singleTap{
+    CGPoint point=[singleTap locationInView:_newsScrollview];
+    CGFloat width=_newsScrollview.frame.size.width;
+    int index=(int)point.x/width;
+    
+    NSURL *url=[NSURL URLWithString:_contentsArr[7][index].url];
+    if (url.scheme.length==0){
+        url=[NSURL URLWithString:[NSString stringWithFormat:@"https://%@",_contentsArr[7][index].url]];
+    }
+    SFSafariViewControllerConfiguration *configuration;
+    configuration.entersReaderIfAvailable=TRUE;
+    SFSafariViewController *tView=[[SFSafariViewController alloc]initWithURL:url configuration:configuration];
+    tView.delegate = self;
+    [self presentViewController:tView animated:YES completion:nil];
+    
+}
 
 - (void)doGetNewsWithType:(int)type{
     newsReq *req=[[newsReq alloc]initWithaccountID:@"test" lastIndex:-1 count:20 type:@[@(type)]];
